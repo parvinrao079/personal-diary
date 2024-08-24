@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Calendar, MapPin, Music, ThumbsUp } from 'react-feather';
 import { moodEmojis } from '../../utils/moodEmojis';
 import mockEntries from '../../utils/mockEntries';
