@@ -56,7 +56,7 @@ const Header = () => {
             alt="Logo"
             className="h-32 w-18 mr-6"
           />
-          <span className="text-lg font-bold">dearDiary</span>
+          <span className="text-4xl font-bold">dearDiary</span>
         </div>
         <div className="flex-none hidden lg:block">
           <ul className="menu menu-horizontal">
@@ -85,10 +85,10 @@ const Header = () => {
           <div>
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
-              <input 
-                type="checkbox" 
-                className="theme-controller" 
-                value="light" 
+              <input
+                type="checkbox"
+                className="theme-controller"
+                value="light"
                 onChange={handleThemeChange}
               />
 

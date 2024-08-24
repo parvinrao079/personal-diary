@@ -3,7 +3,7 @@ import React from 'react';
 const Login = () => {
   return (
     <div>
-      <div className="hero bg-base-300 min-h-screen"
+      <div className="hero bg-base-300 h-[90vh]"
         style={{
           backgroundImage: "url(https://images.pexels.com/photos/7578218/pexels-photo-7578218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)",
         }}>
