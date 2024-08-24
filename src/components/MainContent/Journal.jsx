@@ -27,14 +27,14 @@ const Journal = () => {
         <h1 className="text-3xl font-bold">My Journal</h1>
         <div className="btn-group">
           <button
-            className={`btn ${activeView === 'grid' ? 'btn-active' : ''}`}
+            className={`btn ${activeView === 'grid' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
             onClick={() => setActiveView('grid')}
           >
             Grid
           </button>
 
           <button
-            className={`btn ${activeView === 'timeline' ? 'btn-active' : ''}`}
+            className={`btn ${activeView === 'timeline' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
             onClick={() => setActiveView('timeline')}
           >
             Timeline
