@@ -1,4 +1,3 @@
-
 import {
   MapPin,
   Settings,
@@ -6,9 +5,28 @@ import {
   LogOut,
   Tag
 } from 'lucide-react';
-
+import React, { useState, useEffect } from 'react';
+import darkLogo from '../../assets/personal-diary-logo-dark-theme.svg';
+import lightLogo from '../../assets/personal-diary-logo-light-theme.svg';
 
 const Header = () => {
+  const [logo, setLogo] = useState(lightLogo);
+
+  useEffect(() => {
+    const isDarkMode = document.documentElement.classList.contains('dark');
+    setLogo(isDarkMode ? lightLogo : darkLogo);
+  }, []);
+
+  const handleThemeChange = (event) => {
+    if (event.target.checked) {
+      document.documentElement.classList.add('dark');
+      setLogo(lightLogo); // Show light logo when dark mode is on
+    } else {
+      document.documentElement.classList.remove('dark');
+      setLogo(darkLogo); // Show dark logo when light mode is on
+    }
+  };
+
   return (
     <div>
       <header className="navbar bg-base-200 shadow-lg z-50 sticky top-0 px-auto">
@@ -32,7 +50,12 @@ const Header = () => {
             </svg>
           </label>
         </div>
-        <div className="flex-1 px-14 mx-2">
+        <div className="flex-1 px-14 mx-2 flex items-center">
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-32 w-18 mr-6"
+          />
           <span className="text-lg font-bold">dearDiary</span>
         </div>
         <div className="flex-none hidden lg:block">
@@ -62,7 +85,12 @@ const Header = () => {
           <div>
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
-              <input type="checkbox" className="theme-controller" value="light" />
+              <input 
+                type="checkbox" 
+                className="theme-controller" 
+                value="light" 
+                onChange={handleThemeChange}
+              />
 
               {/* sun icon */}
               <svg
@@ -119,4 +147,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Header;
