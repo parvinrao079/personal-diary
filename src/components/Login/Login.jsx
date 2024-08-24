@@ -7,7 +7,7 @@ const Login = () => {
         style={{
           backgroundImage: "url(https://images.pexels.com/photos/7578218/pexels-photo-7578218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)",
         }}>
-            <div className="hero-overlay bg-opacity-65"></div>
+            <div className="hero-overlay bg-opacity-70"></div>
         <div className="hero-content flex-col lg:flex-row-reverse pb-60">
           <div className="pl-10 text-center lg:text-left">
             <h1 className="text-5xl font-bold">Welcome to {' '}
