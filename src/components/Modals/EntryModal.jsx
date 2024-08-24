@@ -22,17 +22,17 @@ export const EntryModal = ({ diaryEntry, resetState }) => {
                     <p className="py-4">{diaryEntry.preview}</p>
 
                     <div className="flex flex-wrap gap-3 mt-2">
-                        <div className="badge badge-outline">
+                        <div className="badge badge-outline rounded-md h-8">
                             <Calendar className="mr-3" size={13} /> {diaryEntry.date}
                         </div>
-                        <div className="badge badge-outline">
+                        <div className="badge badge-outline rounded-md h-8">
                             <MapPin className="mr-3" size={13} /> {diaryEntry.location}
                         </div>
-                        <div className="badge badge-outline">
+                        <div className="badge badge-outline rounded-md h-8">
                             <Music className="mr-3" size={13} /> {diaryEntry.music}
                         </div>
                     </div>
-                    <div className="badge badge-secondary">
+                    <div className="badge badge-outline text-primary h-auto cursor-pointer"># {' '}
                         {[diaryEntry.mood]}
                     </div>
 
@@ -40,8 +40,8 @@ export const EntryModal = ({ diaryEntry, resetState }) => {
                 <div className="modal-action">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
-                        <div className="flex gap-4">
-                            <button className="btn btn-sm btn-outline btn-error">Delete</button>
+                        <div className="flex gap-2">
+                            <button className="absolute left-12 btn btn-sm btn-error">Delete</button>
                             <button className="btn btn-sm btn-outline btn-accent">Edit</button>
                             <button className="btn btn-sm btn-outline" onClick={resetState}>Close</button>
                         </div>
