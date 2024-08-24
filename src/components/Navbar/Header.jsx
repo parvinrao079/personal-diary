@@ -1,19 +1,17 @@
 
 import {
-  Calendar,
-  Tag,
-  Music,
   MapPin,
   Settings,
   HelpCircle,
   LogOut,
+  Tag
 } from 'lucide-react';
 
 
 const Header = () => {
   return (
     <div>
-      <header className="navbar bg-base-100 shadow-lg z-50 sticky top-0 px-auto">
+      <header className="navbar bg-base-200 shadow-lg z-50 sticky top-0 px-auto">
         <div className="flex-none lg:hidden">
           <label
             htmlFor="my-drawer"
@@ -34,16 +32,12 @@ const Header = () => {
             </svg>
           </label>
         </div>
-        <div className="flex-1 px-2 mx-2">
+        <div className="flex-1 px-14 mx-2">
           <span className="text-lg font-bold">dearDiary</span>
         </div>
         <div className="flex-none hidden lg:block">
           <ul className="menu menu-horizontal">
-            <li>
-              <button>
-                <Calendar /> Timeline
-              </button>
-            </li>
+
             <li>
               <button>
                 <Tag /> Tags
@@ -54,14 +48,10 @@ const Header = () => {
                 <MapPin /> Places
               </button>
             </li>
-            <li>
-              <button>
-                <Music /> Soundtrack
-              </button>
-            </li>
+
           </ul>
         </div>
-        <div className="flex-none gap-2">
+        <div className="flex-none gap-10">
           <div className="form-control">
             <input
               type="text"
@@ -76,7 +66,7 @@ const Header = () => {
 
               {/* sun icon */}
               <svg
-                className="swap-off h-10 w-10 fill-current"
+                className="swap-off h-8 w-8 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -85,7 +75,7 @@ const Header = () => {
 
               {/* moon icon */}
               <svg
-                className="swap-on h-10 w-10 fill-current"
+                className="swap-on h-8 w-8 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24">
                 <path
@@ -93,13 +83,13 @@ const Header = () => {
               </svg>
             </label>
           </div>
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end pr-20">
             <label
               tabIndex={0}
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img src="/api/placeholder/100/100" alt="Profile" />
+                <img src="https://images.pexels.com/photos/4029925/pexels-photo-4029925.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Profile" />
               </div>
             </label>
             <ul
