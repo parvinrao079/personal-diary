@@ -17,7 +17,7 @@ const Login = () => {
               </a>
             </span>{' '}</h1>
             <p className="py-6 ">
-              welcome to dearDiary, we have managed to create an awesome website for you to write your journal.
+            We are thrilled to present you with a phenomenal website designed especially for you to pour your heart out in your journal.  <br /> <br />Start journaling today and embark on a journey of self-discovery and reflection.
             </p>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
