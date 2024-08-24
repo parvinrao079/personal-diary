@@ -1,3 +1,5 @@
+
+
 export const EntryModal = ({ diaryEntry, resetState }) => {
     return (
         <dialog id="entryModal" className="modal modal-bottom sm:modal-middle">
