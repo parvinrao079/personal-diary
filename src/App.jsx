@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Sun,
-  Moon,
   Calendar,
   Tag,
   Music,
@@ -10,19 +8,16 @@ import {
   HelpCircle,
   LogOut,
 } from 'lucide-react';
+import Journal from './components/MainContent/Journal';
 
 
 const App = () => {
-  const [theme, setTheme] = useState('light');
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
 
   return (
     <>
       <div>
-        <header className="navbar bg-base-100 shadow-lg z-50 sticky top-0">
+        <header className="navbar bg-base-100 shadow-lg z-50 sticky top-0 px-auto">
           <div className="flex-none lg:hidden">
             <label
               htmlFor="my-drawer"
@@ -134,6 +129,7 @@ const App = () => {
             </div>
           </div>
         </header>
+        <Journal />
       </div>
     </>
   )
