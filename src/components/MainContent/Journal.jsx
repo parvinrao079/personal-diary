@@ -21,10 +21,28 @@ const Journal = () => {
     }
   }, [diaryEntry]);
 
+function getTodayDate()  {
+  const today = new Date();
+  return today.toISOString().slice(0, 10);};
+const todayDate = getTodayDate();
+
+const hasTodayEntry = mockEntries.some((entry) => entry.date === todayDate);
+
+// function to show the modal based on the condition of there being an entry for today
+function choosingModal(){
+  if(hasTodayEntry === true) {
+    document.getElementById('alreadyAddedModal').showModal();
+  }
+else if (hasTodayEntry === false) {
+  document.getElementById('newEntryModal').showModal();
+}}
+
   return (
     <main className="flex-grow container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Journal</h1>
+        <button onClick ={() => choosingModal()}
+          id="addEntryBtn" className="btn btn-primary">Add Entry</button>
         <div className="btn-group">
           <button
             className={`btn ${activeView === 'grid' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
