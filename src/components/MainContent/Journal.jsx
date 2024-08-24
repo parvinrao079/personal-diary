@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calendar, MapPin, Music, ThumbsUp } from 'react-feather';
 import { moodEmojis } from '../../utils/moodEmojis';
 import mockEntries from '../../utils/mockEntries';
+import { AlreadyAddedModal } from '../Modals/AlreadyAddedModal';
+import { NewEntryModal } from '../Modals/NewEntryModal';
+import { EntryModal } from '../Modals/EntryModal';
 
 const Journal = () => {
   const [activeView, setActiveView] = useState('grid');
+  const [diaryEntry, setDiaryEntry] = useState({
+    title: '',
+    image: '',
+    created_at: '',
+    body: ''
+  });
+
+  useEffect(() => {
+    if (diaryEntry.title) {
+      document.getElementById('entryModal').showModal();
+    }
+  }, [diaryEntry]);
 
   return (
     <main className="flex-grow container mx-auto px-4 py-8">
@@ -33,6 +48,9 @@ const Journal = () => {
             <div
               key={entry.id}
               className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+              onClick={()=> setDiaryEntry(entry)}
+              // onClick={() => document.getElementById('newEntryModal').showModal()}
+              // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
             >
               <figure className="px-4 pt-4">
                 <img
@@ -80,12 +98,14 @@ const Journal = () => {
         </div>
       )}
 
-
-
       {activeView === 'timeline' && (
         <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
           {mockEntries.map((entry, index) => (
-            <li key={entry.id}>
+            <li key={entry.id}
+              onClick={()=> setDiaryEntry(entry)}
+              // onClick={() => document.getElementById('newEntryModal').showModal()}
+              // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
+            >
               <div className="timeline-middle">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +134,9 @@ const Journal = () => {
           ))}
         </ul>
       )}
+      <AlreadyAddedModal />
+      <NewEntryModal />
+      <EntryModal resetState={() => setDiaryEntry({})} diaryEntry={diaryEntry} />
     </main>
   );
 };
