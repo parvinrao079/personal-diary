@@ -82,19 +82,19 @@ const Journal = () => {
               <div className="card-body">
                 <h2 className="card-title">
                   {entry.title}
-                  <div className="badge badge-secondary">
+                  <div className="badge badge-secondary h-6 bg-accent">
                     {moodEmojis[entry.mood]}
                   </div>
                 </h2>
                 <p className="text-sm line-clamp-3">{entry.preview}</p>
                 <div className="flex flex-wrap gap-2 mt-2">
-                  <div className="badge badge-outline">
+                  <div className="badge badge-outline rounded-md h-8">
                     <Calendar className="mr-2" size={13} /> {entry.date}
                   </div>
-                  <div className="badge badge-outline">
+                  <div className="badge badge-outline rounded-md h-8">
                     <MapPin className="mr-2" size={13} /> {entry.location}
                   </div>
-                  <div className="badge badge-outline">
+                  <div className="badge badge-outline rounded-md h-8">
                     <Music className="mr-2" size={13} /> {entry.music}
                   </div>
                 </div>
@@ -106,8 +106,8 @@ const Journal = () => {
                   </div>
                   <div>
                     {entry.tags.map((tag, index) => (
-                      <div key={index} className="badge badge-primary mr-1">
-                        {tag}
+                      <div key={index} className="badge badge-primary mx-1 px-2 rounded-md">
+                        # {tag}
                       </div>
                     ))}
                   </div>
