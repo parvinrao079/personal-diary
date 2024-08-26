@@ -1,1 +1,3 @@
-export const addNewEntry = (event) => {console.log(event)};
+export const addNewEntry = (event) => {
+  console.log(event);
+};

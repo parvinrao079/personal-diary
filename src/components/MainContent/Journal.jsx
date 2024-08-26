@@ -12,7 +12,7 @@ const Journal = () => {
     title: '',
     image: '',
     created_at: '',
-    body: ''
+    body: '',
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Journal = () => {
   function getTodayDate() {
     const today = new Date();
     return today.toISOString().slice(0, 10);
-  };
+  }
   const todayDate = getTodayDate();
 
   const hasTodayEntry = mockEntries.some((entry) => entry.date === todayDate);
@@ -33,8 +33,7 @@ const Journal = () => {
   function choosingModal() {
     if (hasTodayEntry === true) {
       document.getElementById('alreadyAddedModal').showModal();
-    }
-    else if (hasTodayEntry === false) {
+    } else if (hasTodayEntry === false) {
       document.getElementById('newEntryModal').showModal();
     }
   }
@@ -43,8 +42,13 @@ const Journal = () => {
     <main className="flex-grow container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">My Journal</h1>
-        <button onClick={() => choosingModal()}
-          id="addEntryBtn" className="btn btn-primary">Add Entry</button>
+        <button
+          onClick={() => choosingModal()}
+          id="addEntryBtn"
+          className="btn btn-primary"
+        >
+          Add Entry
+        </button>
         <div className="btn-group">
           <button
             className={`btn ${activeView === 'grid' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
@@ -69,8 +73,8 @@ const Journal = () => {
               key={entry.id}
               className="card bg-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
               onClick={() => setDiaryEntry(entry)}
-            // onClick={() => document.getElementById('newEntryModal').showModal()}
-            // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
+              // onClick={() => document.getElementById('newEntryModal').showModal()}
+              // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
             >
               <figure className="px-4 pt-4">
                 <img
@@ -106,7 +110,10 @@ const Journal = () => {
                   </div>
                   <div>
                     {entry.tags.map((tag, index) => (
-                      <div key={index} className="badge badge-primary mx-1 px-2 rounded-md">
+                      <div
+                        key={index}
+                        className="badge badge-primary mx-1 px-2 rounded-md"
+                      >
                         # {tag}
                       </div>
                     ))}
@@ -121,10 +128,11 @@ const Journal = () => {
       {activeView === 'timeline' && (
         <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
           {mockEntries.map((entry, index) => (
-            <li key={entry.id}
+            <li
+              key={entry.id}
               onClick={() => setDiaryEntry(entry)}
-            // onClick={() => document.getElementById('newEntryModal').showModal()}
-            // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
+              // onClick={() => document.getElementById('newEntryModal').showModal()}
+              // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
             >
               <div className="timeline-middle">
                 <svg
@@ -142,20 +150,23 @@ const Journal = () => {
               </div>
 
               <div
-                className={`mb-10 bg-base-300 ${index % 2 === 0 ? 'timeline-box timeline-start md:text-end' : 'timeline-end timeline-box'
-                  }`}
+                className={`mb-10 bg-base-300 ${
+                  index % 2 === 0
+                    ? 'timeline-box timeline-start md:text-end'
+                    : 'timeline-end timeline-box'
+                }`}
               >
-                <div className='flex flex-col gap-4 px-4 py-4'>
-                <figure className="px-4 pt-4">
-                  <img
-                    src={entry.image}
-                    alt={entry.title}
-                    className="rounded-xl h-48 w-full object-cover"
-                  />
-                </figure>
-                <time className="font-mono italic">{entry.date}</time>
-                <div className="text-lg font-black">{entry.title}</div>
-                {entry.preview}
+                <div className="flex flex-col gap-4 px-4 py-4">
+                  <figure className="px-4 pt-4">
+                    <img
+                      src={entry.image}
+                      alt={entry.title}
+                      className="rounded-xl h-48 w-full object-cover"
+                    />
+                  </figure>
+                  <time className="font-mono italic">{entry.date}</time>
+                  <div className="text-lg font-black">{entry.title}</div>
+                  {entry.preview}
                 </div>
               </div>
               <hr />
@@ -165,7 +176,10 @@ const Journal = () => {
       )}
       <AlreadyAddedModal />
       <NewEntryModal />
-      <EntryModal resetState={() => setDiaryEntry({})} diaryEntry={diaryEntry} />
+      <EntryModal
+        resetState={() => setDiaryEntry({})}
+        diaryEntry={diaryEntry}
+      />
     </main>
   );
 };
