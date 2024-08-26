@@ -1,5 +1,3 @@
-
-
 const Footer = () => {
   return (
     <div>
@@ -36,13 +34,11 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <p>
-            Copyright © 2024 - All rights reserved by dearDiary Inc.
-          </p>
+          <p>Copyright © 2024 - All rights reserved by dearDiary Inc.</p>
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

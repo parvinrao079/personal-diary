@@ -3,21 +3,30 @@ import React from 'react';
 const Login = () => {
   return (
     <div>
-      <div className="hero bg-base-300 h-[90vh]"
+      <div
+        className="hero bg-base-300 h-[90vh]"
         style={{
-          backgroundImage: "url(https://images.pexels.com/photos/7578218/pexels-photo-7578218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)",
-        }}>
-            <div className="hero-overlay bg-opacity-70"></div>
+          backgroundImage:
+            'url(https://images.pexels.com/photos/7578218/pexels-photo-7578218.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
+        }}
+      >
+        <div className="hero-overlay bg-opacity-70"></div>
         <div className="hero-content flex-col lg:flex-row-reverse pb-60">
           <div className="pl-10 text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Welcome to {' '}
-            <span>
-              <a className="text-9xl cursor-pointer text-gradient bg-gradient-to-b from-primary to-secondary">
-                dear<span className="font-bold">Diary</span>
-              </a>
-            </span>{' '}</h1>
+            <h1 className="text-5xl font-bold">
+              Welcome to{' '}
+              <span>
+                <a className="text-9xl cursor-pointer text-gradient bg-gradient-to-b from-primary to-secondary">
+                  dear<span className="font-bold">Diary</span>
+                </a>
+              </span>{' '}
+            </h1>
             <p className="py-6 ">
-            We are thrilled to present you with a phenomenal website designed especially for you to pour your heart out in your journal.  <br /> <br />Start journaling today and embark on a journey of self-discovery and reflection.
+              We are thrilled to present you with a phenomenal website designed
+              especially for you to pour your heart out in your journal. <br />{' '}
+              <br />
+              Start journaling today and embark on a journey of self-discovery
+              and reflection.
             </p>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
