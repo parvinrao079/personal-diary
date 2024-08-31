@@ -6,3 +6,5 @@ export const moodEmojis = {
   nostalgic: '🥲',
   awestruck: '😲',
 };
+
+

@@ -12,6 +12,25 @@
   --color-lime-shock: #f1ffbb;
 }
 
+::-webkit-datetime-edit-month-field {
+  color: #b2b2b2;
+}
+::-webkit-datetime-edit-day-field {
+  color: #b2b2b2;
+}
+::-webkit-datetime-edit-year-field {
+  color: #b2b2b2;
+}
+::-webkit-datetime-edit-text {
+  color: #b2b2b2;
+}
+::-webkit-inner-spin-button {
+  display: none;
+}
+::-webkit-calendar-picker-indicator {
+  color: #b2b2b2;
+}
+
 @layer base {
   body {
     font-family: 'Poppins', sans-serif;
