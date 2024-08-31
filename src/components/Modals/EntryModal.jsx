@@ -17,7 +17,7 @@ export const EntryModal = ({ diaryEntry, resetState }) => {
         <div className="flex flex-col px-6 py-6 gap-6">
           <figure className="">
             <img
-              src={diaryEntry.image}
+              src={diaryEntry.imgURL}
               alt={diaryEntry.title}
               className="rounded-xl h-48 w-full object-cover"
             />
