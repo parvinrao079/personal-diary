@@ -1,12 +1,54 @@
-import { addNewEntry } from '../../utils/localStorage';
+import { useState } from 'react';
 import { Calendar, Heading, Image, MessageSquareText } from 'lucide-react';
 
 export const NewEntryModal = () => {
+  // State to store input values
+  const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [text, setText] = useState('');
+  const [imgURL, setImgURL] = useState('');
+
+  // State to manage the success message visibility
+  const [successMessage, setSuccessMessage] = useState('');
+
+  // Function to handle the save action
+  const handleSave = () => {
+    // Create an entry object
+    const newEntry = {
+      title,
+      date,
+      text,
+      imgURL,
+    };
+
+    // Get existing entries from local storage
+    const existingEntries = JSON.parse(localStorage.getItem('entries')) || [];
+
+    // Add the new entry to the existing entries
+    existingEntries.push(newEntry);
+
+    // Save the updated list back to local storage
+    localStorage.setItem('entries', JSON.stringify(existingEntries));
+
+    // Show success message
+    setSuccessMessage('Entry saved successfully!');
+
+    // Hide the success message after 3 seconds
+    setTimeout(() => {
+      setSuccessMessage('');
+    }, 3000);
+
+    // Optional: Reset the input fields after saving
+    setTitle('');
+    setDate('');
+    setText('');
+    setImgURL('');
+  };
+
   return (
     <dialog id="newEntryModal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box bg-base-100">
         <form method="dialog">
-          {/* if there is a button in form, it will close the modal */}
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
             ✕
           </button>
@@ -21,6 +63,8 @@ export const NewEntryModal = () => {
                 type="text"
                 className="grow placeholder-textneutral"
                 placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </label>
             <label className="input input-bordered flex items-center gap-2 text-primary">
@@ -29,6 +73,8 @@ export const NewEntryModal = () => {
                 type="text"
                 className="grow placeholder-textneutral"
                 placeholder="Date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
             </label>
             <label className="input input-bordered flex items-center gap-2 text-primary">
@@ -37,6 +83,8 @@ export const NewEntryModal = () => {
                 type="text"
                 className="grow placeholder-textneutral"
                 placeholder="Text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
               />
             </label>
             <label className="input input-bordered flex items-center gap-2 text-primary">
@@ -45,17 +93,21 @@ export const NewEntryModal = () => {
                 type="text"
                 className="grow placeholder-textneutral"
                 placeholder="ImgURL"
+                value={imgURL}
+                onChange={(e) => setImgURL(e.target.value)}
               />
             </label>
           </form>
+          {successMessage && (
+            <div className="text-success text-center mt-4">
+              {successMessage}
+            </div>
+          )}
         </div>
         <div className="modal-action">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-outline" onClick={addNewEntry}>
-              Save
-            </button>
-          </form>
+          <button className="btn btn-outline" onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
       <form className="modal-backdrop" method="dialog">
