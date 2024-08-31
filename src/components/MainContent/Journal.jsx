@@ -1,3 +1,5 @@
+
+{/*
 import { useEffect, useState } from 'react';
 import { Calendar, MapPin, Music, ThumbsUp } from 'react-feather';
 import { moodEmojis } from '../../utils/moodEmojis';
@@ -185,3 +187,96 @@ const Journal = () => {
 };
 
 export default Journal;
+*/}
+
+
+import React, { useState, useEffect } from 'react';
+import Grid from '../CardLayouts/Grid';
+import Timeline from '../CardLayouts/Timeline';
+import { AlreadyAddedModal } from '../Modals/AlreadyAddedModal';
+import { NewEntryModal } from '../Modals/NewEntryModal';
+import { EntryModal } from '../Modals/EntryModal';
+
+const Journal = () => {
+  const [view, setView] = useState('grid');
+  const [entries, setEntries] = useState([]);
+  const [diaryEntry, setDiaryEntry] = useState({
+    title: '',
+    image: '',
+    created_at: '',
+    body: '',
+  });
+
+  useEffect(() => {
+    const storedEntries = JSON.parse(localStorage.getItem('entries')) || [];
+    setEntries(storedEntries);
+  }, []);
+
+  useEffect(() => {
+    if (diaryEntry.title) {
+      document.getElementById('entryModal').showModal();
+    }
+  }, [diaryEntry]);
+
+  function getTodayDate() {
+    const today = new Date();
+    return today.toISOString().slice(0, 10);
+  }
+  
+  const todayDate = getTodayDate();
+
+  const hasTodayEntry = entries.some((entry) => entry.date === todayDate);
+
+  function choosingModal() {
+    if (hasTodayEntry === true) {
+      document.getElementById('alreadyAddedModal').showModal();
+    } else {
+      document.getElementById('newEntryModal').showModal();
+    }
+  }
+
+  return (
+    <main className="p-6">
+      <h1 className="text-3xl font-bold text-white mb-6">My Journal</h1>
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={() => choosingModal()}
+          className="btn btn-primary"
+        >
+          Add Entry
+        </button>
+        <div className="btn-group">
+          <button
+            onClick={() => setView('grid')}
+            className={`btn ${view === 'grid' ? 'btn-active' : ''}`}
+          >
+            Grid
+          </button>
+          <button
+            onClick={() => setView('timeline')}
+            className={`btn ${view === 'timeline' ? 'btn-active' : ''}`}
+          >
+            Timeline
+          </button>
+        </div>
+      </div>
+      {view === 'grid' ? (
+        <Grid entries={entries} setDiaryEntry={setDiaryEntry} />
+      ) : (
+        <Timeline entries={entries} setDiaryEntry={setDiaryEntry} />
+      )}
+      <AlreadyAddedModal />
+      <NewEntryModal />
+      <EntryModal
+        resetState={() => setDiaryEntry({})}
+        diaryEntry={diaryEntry}
+      />
+    </main>
+  );
+};
+
+export default Journal;
+
+
+
+
