@@ -10,6 +10,10 @@ export const NewEntryModal = () => {
   const [imgURL, setImgURL] = useState('');
   const emojiOptionss = [];
   const [selectedEmoji, setSelectedEmoji] = useState(0);
+  const [isTextValid, setIsTextValid] = useState(true);
+  const [isTitleValid, setIsTitleValid] = useState(true);
+  const [isImgUrlValid, setIsImgUrlValid] = useState(true);
+  const [isDateValid, setIsDateValid] = useState(true);
 
   for (const [key, value] of Object.entries(moodEmojis)) {
     emojiOptionss.push(value);
@@ -19,7 +23,37 @@ export const NewEntryModal = () => {
   const [successMessage, setSuccessMessage] = useState('');
 
   // Function to handle the save action
-  const handleSave = () => {
+  const handleSave = (event) => {
+    event.preventDefault();
+    // Validate input values
+    let isFormValid = true;
+    if (title.trim().length === 0) {
+      setIsTitleValid(false);
+      isFormValid = false;
+    } else {
+      setIsTitleValid(true);
+    }
+    if (date.trim().length === 0) {
+      setIsDateValid(false);
+      isFormValid = false;
+    } else {
+      setIsDateValid(true);
+    }
+    if (text.trim().length === 0) {
+      setIsTextValid(false);
+      isFormValid = false;
+    } else {
+      setIsTextValid(true);
+    }
+    if (imgURL.trim().length === 0) {
+      setIsImgUrlValid(false);
+      isFormValid = false;
+    } else {
+      setIsImgUrlValid(true);
+    }
+    if (!isFormValid) {
+      return;
+    }
     // Create an entry object
     const newEntry = {
       mood: emojiOptionss[selectedEmoji],
@@ -65,68 +99,106 @@ export const NewEntryModal = () => {
         <div className="flex flex-col gap-4 py-4 px-4">
           <h3 className="font-bold text-3xl">Add new entry</h3>
           <p className="py-4 mb-8">Fill out the data to add a new entry</p>
-          <form className="flex flex-col gap-6" action={handleSave}>
-            <input
-              type="range"
-              min={0}
-              max={emojiOptionss.length - 1}
-              value={selectedEmoji}
-              className="range range-lg"
-              onChange={(e) => setSelectedEmoji(e.target.value)}
-              required
-            />
-            <div className="flex w-full justify-between px-2">
-              {emojiOptionss.map((emoji, index) => (
-                <span key={index}>{emoji}</span>
-              ))}
+          <form className="flex flex-col gap-6">
+            <div>
+              <label className='label textneutral'>What is your mood today?</label>
+              <input
+                type="range"
+                min={0}
+                max={emojiOptionss.length - 1}
+                value={selectedEmoji}
+                className="range range-lg"
+                onChange={(e) => setSelectedEmoji(e.target.value)}
+                required
+              />
+              <div className="flex w-full justify-between px-2">
+                {emojiOptionss.map((emoji, index) => (
+                  <span key={index}>{emoji}</span>
+                ))}
+              </div>
             </div>
-
-            <label className="input input-bordered flex items-center gap-2 text-primary">
-              <Heading />
-
-              <input
-                type="text"
-                className="grow placeholder-textneutral"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </label>
-            <label className="input input-bordered flex items-center gap-2 text-primary">
-              <Calendar />
-              <input
-                type="date"
-                className="grow placeholder-textneutral text-grey-500"
-                placeholder="Date (YYYY-MM-DD)"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-            </label>
-            <label className="textarea textarea-bordered flex items-center gap-2 text-primary">
-              <MessageSquareText />
-              <textarea
-                className="textarea textarea-lg w-full"
-                placeholder="Text"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                required
-              ></textarea>
-            </label>
-            <label className="input input-bordered flex items-center gap-2 text-primary">
-              <Image />
-              <input
-                type="url"
-                className="grow placeholder-textneutral"
-                placeholder="https://example.com/image.jpg"
-                value={imgURL}
-                onChange={(e) => setImgURL(e.target.value)}
-                required
-              />
-            </label>
+            <div>
+              <label
+                className={`input input-bordered flex items-center gap-2 text-primary ${isTitleValid ? '' : 'input-error'}`}
+              >
+                <Heading />
+                <input
+                  type="text"
+                  className="grow placeholder-textneutral"
+                  placeholder="Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </label>
+              {!isTitleValid && (
+                <div className="text-red-500 text-sm pt-2 pl-6">
+                  * Please input a valid title.
+                </div>
+              )}
+            </div>
+            <div>
+              <label
+                className={`input input-bordered flex items-center gap-2 text-primary ${isDateValid ? '' : 'input-error'}`}
+              >
+                <Calendar />
+                <input
+                  type="date"
+                  className="grow placeholder-textneutral text-grey-500"
+                  placeholder="Date (YYYY-MM-DD)"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
+              </label>
+              {!isDateValid && (
+                <div className="text-red-500 text-sm pt-2 pl-6">
+                  * Please input a valid date.
+                </div>
+              )}
+            </div>
+            <div>
+              <label
+                className={`textarea textarea-bordered flex gap-2 text-primary ${isTextValid ? '' : 'textarea-error'}`}
+              >
+                <MessageSquareText className='mt-2' />
+                <textarea
+                  className="textarea textarea-lg pl-0 pt-0 w-full"
+                  placeholder="Text"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                ></textarea>
+              </label>
+              {!isTextValid && (
+                <div className="text-red-500 text-sm pt-2 pl-6">
+                  * Please input a valid text.
+                </div>
+              )}
+            </div>
+            <div>
+              <label
+                className={`input input-bordered flex items-center gap-2 text-primary ${isImgUrlValid ? '' : 'input-error'}`}
+              >
+                <Image />
+                <input
+                  type="url"
+                  className="grow placeholder-textneutral"
+                  placeholder="https://example.com/image.jpg"
+                  value={imgURL}
+                  onChange={(e) => setImgURL(e.target.value)}
+                />
+              </label>
+              {!isImgUrlValid && (
+                <div className="text-red-500 text-sm pt-2 pl-6">
+                  * Please input a valid url of an image.
+                </div>
+              )}
+            </div>
             <div className="modal-action">
-              <button type="submit" className="btn btn-outline">
+              <button
+                type="submit"
+                className="btn btn-outline"
+                onClick={handleSave}
+              >
                 Save
               </button>
             </div>
