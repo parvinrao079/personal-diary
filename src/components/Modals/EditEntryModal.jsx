@@ -1,23 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Heading, Image, MessageSquareText } from 'lucide-react';
 import { moodEmojis } from '../../utils/moodEmojis';
 
-export const NewEntryModal = ({updateEntries}) => {
+export const EditEntryModal = ({diaryEntry, resetState, handleEdit}) => {
   // State to store input values
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [text, setText] = useState('');
-  const [imgURL, setImgURL] = useState('');
+  const [title, setTitle] = useState(diaryEntry?.title || '');
+  const [date, setDate] = useState(diaryEntry?.date || '');
+  const [text, setText] = useState(diaryEntry?.text || '');
+  const [imgURL, setImgURL] = useState(diaryEntry?.imgURL || '');
   const emojiOptionss = [];
-  const [selectedEmoji, setSelectedEmoji] = useState(0);
+  console.log(diaryEntry);
+  for (const [key, value] of Object.entries(moodEmojis)) {
+    emojiOptionss.push(value);
+  }
+  
+  let index = emojiOptionss.indexOf(diaryEntry?.mood || '' );
+  console.log(index);
+  console.log(diaryEntry?.mood);
+  if (index === -1) { index = 0; }
+  
+
+  const [selectedEmoji, setSelectedEmoji] = useState(index);
   const [isTextValid, setIsTextValid] = useState(true);
   const [isTitleValid, setIsTitleValid] = useState(true);
   const [isImgUrlValid, setIsImgUrlValid] = useState(true);
   const [isDateValid, setIsDateValid] = useState(true);
 
-  for (const [key, value] of Object.entries(moodEmojis)) {
-    emojiOptionss.push(value);
-  }
+  useEffect(() => {
+    console.log(title);
+    console.log(date);
+    console.log(text);
+    console.log(imgURL);
+  console.log(selectedEmoji);}
+  , [title, date, text, imgURL, selectedEmoji]
+    );
+
+    useEffect(() => {
+      setTitle(diaryEntry.title);
+      setDate(diaryEntry.date);
+      setText(diaryEntry.text);
+      setImgURL(diaryEntry.imgURL);
+      let index = emojiOptionss.indexOf(diaryEntry?.mood || '' );
+    if (index === -1) { index = 0; }
+    setSelectedEmoji(index);
+    }, [diaryEntry]);
 
   // State to manage the success message visibility
   const [successMessage, setSuccessMessage] = useState('');
@@ -32,12 +58,6 @@ export const NewEntryModal = ({updateEntries}) => {
       isFormValid = false;
     } else {
       setIsTitleValid(true);
-    }
-    if (date.trim().length === 0) {
-      setIsDateValid(false);
-      isFormValid = false;
-    } else {
-      setIsDateValid(true);
     }
     if (text.trim().length === 0) {
       setIsTextValid(false);
@@ -54,27 +74,16 @@ export const NewEntryModal = ({updateEntries}) => {
     if (!isFormValid) {
       return;
     }
-    // Create an entry object
-    const newEntry = {
+    // Updates entry object
+    const updateEntry = {
       mood: emojiOptionss[selectedEmoji],
       title,
-      date,
+      date: diaryEntry.date,
       text,
       imgURL,
     };
 
-    // Get existing entries from local storage
-    const existingEntries = JSON.parse(localStorage.getItem('entries')) || [];
-
-    // Add the new entry to the existing entries
-    existingEntries.push(newEntry);
-
-    // Save the updated list back to local storage
-    localStorage.setItem('entries', JSON.stringify(existingEntries));
-
-    //update the journal
-    updateEntries();
-
+    
     // Show success message
     setSuccessMessage('Entry saved successfully!');
 
@@ -82,19 +91,21 @@ export const NewEntryModal = ({updateEntries}) => {
     setTimeout(() => {
       setSuccessMessage('');
     }, 3000);
-
+    handleEdit(updateEntry);
+    
     // Optional: Reset the input fields after saving
     setSelectedEmoji(0);
     setTitle('');
     setDate('');
     setText('');
     setImgURL('');
-
-    document.getElementById('newEntryModal').close();
+    
+    resetState();
+    
   };
 
   return (
-    <dialog id="newEntryModal" className="modal modal-bottom sm:modal-middle">
+    <dialog id="editEntryModal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box bg-base-100">
         <form method="dialog">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -111,7 +122,7 @@ export const NewEntryModal = ({updateEntries}) => {
                 type="range"
                 min={0}
                 max={emojiOptionss.length - 1}
-                value={selectedEmoji}
+                value={selectedEmoji || 0}
                 className="range range-lg"
                 onChange={(e) => setSelectedEmoji(e.target.value)}
                 required
@@ -131,7 +142,7 @@ export const NewEntryModal = ({updateEntries}) => {
                   type="text"
                   className="grow placeholder-textneutral"
                   placeholder="Title"
-                  value={title}
+                  value={title || ''}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </label>
@@ -150,9 +161,8 @@ export const NewEntryModal = ({updateEntries}) => {
                   type="date"
                   className="grow placeholder-textneutral text-grey-500"
                   placeholder="Date (YYYY-MM-DD)"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  required
+                  defaultValue={date || ''}
+                  readOnly
                 />
               </label>
               {!isDateValid && (
@@ -169,7 +179,7 @@ export const NewEntryModal = ({updateEntries}) => {
                 <textarea
                   className="textarea textarea-lg pl-0 pt-0 w-full"
                   placeholder="Text"
-                  value={text}
+                  value={text || ''}
                   onChange={(e) => setText(e.target.value)}
                 ></textarea>
               </label>
@@ -188,7 +198,7 @@ export const NewEntryModal = ({updateEntries}) => {
                   type="url"
                   className="grow placeholder-textneutral"
                   placeholder="https://example.com/image.jpg"
-                  value={imgURL}
+                  value={imgURL || ''}
                   onChange={(e) => setImgURL(e.target.value)}
                 />
               </label>

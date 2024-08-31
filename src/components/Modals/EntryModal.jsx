@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Calendar, MapPin, Music } from 'react-feather';
 
-export const EntryModal = ({ diaryEntry, resetState }) => {
+//Edit Button
+const handleEdit = () => {
+  document.getElementById('editEntryModal').showModal();
+};
+
+export const EntryModal = ({ diaryEntry, resetState, handleDelete }) => {
   return (
     <dialog id="entryModal" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box">
@@ -44,10 +49,10 @@ export const EntryModal = ({ diaryEntry, resetState }) => {
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <div className="flex gap-2">
-              <button className="absolute left-12 btn btn-sm btn-error">
+              <button className="absolute left-12 btn btn-sm btn-error" onClick={() => handleDelete(diaryEntry.date)}>
                 Delete
               </button>
-              <button className="btn btn-sm btn-outline btn-accent">
+              <button className="btn btn-sm btn-outline btn-accent" onClick={handleEdit}>
                 Edit
               </button>
               <button className="btn btn-sm btn-outline" onClick={resetState}>
