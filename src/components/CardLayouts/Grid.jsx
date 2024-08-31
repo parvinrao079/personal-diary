@@ -6,7 +6,7 @@ const Grid = ({ entries, setDiaryEntry }) => {
       {entries.map((entry, index) => (
         <div
           key={index}
-          className="card bg-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+          className="card cursor-pointer bg-base-300 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
           onClick={() => setDiaryEntry(entry)}
         >
           {entry.imgURL && (
@@ -19,12 +19,12 @@ const Grid = ({ entries, setDiaryEntry }) => {
           <div className="card-body">
             <h2 className="card-title text-3xl">
               {entry.title}{' '}
-              <span className="badge badge-secondary h-6 bg-accent ml-10">
+            </h2>
+            <p className="text-sm pt-4">{entry.text.slice(0, 100) + ' ...'}</p>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <span className="badge badge-secondary h-8 bg-accent text-xl mr-4">
                 {entry.mood}
               </span>
-            </h2>
-            <p className="text-sm line-clamp-3 py-10">{entry.text}</p>
-            <div className="flex flex-wrap gap-2 mt-2">
               <div className="badge badge-outline rounded-md h-8">
                 <Calendar className="mr-2" size={13} /> {entry.date}
               </div>

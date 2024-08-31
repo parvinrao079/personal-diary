@@ -33,10 +33,10 @@ const Timeline = ({ entries, setDiaryEntry }) => {
               )}
               <time className="font-mono italic">{entry.date}</time>
               <div className="text-lg font-black">
-                {entry.title}{' '}
-                <span className="badge badge-secondary h-6 bg-accent ml-10">
+                <span className="badge badge-secondary h-8 bg-accent text-xl mr-4">
                   {entry.mood}
                 </span>
+                {entry.title}{' '}
               </div>
               <p className="text-sm line-clamp-3">{entry.text}</p>
             </div>
