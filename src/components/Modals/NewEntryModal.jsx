@@ -65,7 +65,7 @@ export const NewEntryModal = () => {
         <div className="flex flex-col gap-4 py-4 px-4">
           <h3 className="font-bold text-3xl">Add new entry</h3>
           <p className="py-4 mb-8">Fill out the data to add a new entry</p>
-          <form className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6" action={handleSave}>
             <input
               type="range"
               min={0}
@@ -125,17 +125,17 @@ export const NewEntryModal = () => {
                 required
               />
             </label>
+            <div className="modal-action">
+              <button type="submit" className="btn btn-outline">
+                Save
+              </button>
+            </div>
           </form>
           {successMessage && (
             <div className="text-success text-center mt-4">
               {successMessage}
             </div>
           )}
-        </div>
-        <div className="modal-action">
-          <button className="btn btn-outline" onClick={handleSave}>
-            Save
-          </button>
         </div>
       </div>
       <form className="modal-backdrop" method="dialog">
