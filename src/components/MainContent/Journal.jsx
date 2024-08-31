@@ -194,21 +194,27 @@ import Timeline from '../CardLayouts/Timeline';
 import { AlreadyAddedModal } from '../Modals/AlreadyAddedModal';
 import { NewEntryModal } from '../Modals/NewEntryModal';
 import { EntryModal } from '../Modals/EntryModal';
+import { EditEntryModal } from '../Modals/EditEntryModal';
+
 
 const Journal = () => {
   const [view, setView] = useState('grid');
   const [entries, setEntries] = useState([]);
   const [diaryEntry, setDiaryEntry] = useState({
     title: '',
-    image: '',
-    created_at: '',
-    body: '',
+    imgURL: '',
+    date: '',
+    text: '',
+    mood:'😌',
   });
 
-  useEffect(() => {
+  const updateEntries = () => {
     const storedEntries = JSON.parse(localStorage.getItem('entries')) || [];
     setEntries(storedEntries);
-  }, []);
+  }
+
+  useEffect(() => {updateEntries()}, []);
+    
 
   useEffect(() => {
     if (diaryEntry.title) {
@@ -232,6 +238,25 @@ const Journal = () => {
       document.getElementById('newEntryModal').showModal();
     }
   }
+
+//Delete Button
+  const handleDelete = (date) => {
+    const updatedEntries = entries.filter((entry) => entry.date !== date);
+    setEntries(updatedEntries);
+    localStorage.setItem('entries', JSON.stringify(updatedEntries));
+  };
+
+  //Edit Button
+  const handleEdit = (updatedEntry) => {
+    const updatedEntries = entries.map((entry) =>
+      entry.date === updatedEntry.date ? updatedEntry : entry
+    );
+    setEntries(updatedEntries);
+    localStorage.setItem('entries', JSON.stringify(updatedEntries));
+    document.getElementById('editEntryModal').close();
+  };
+ 
+
 
   return (
     <main className="flex-grow container mx-auto px-4 py-8">
@@ -261,11 +286,13 @@ const Journal = () => {
         <Timeline entries={entries} setDiaryEntry={setDiaryEntry} />
       )}
       <AlreadyAddedModal />
-      <NewEntryModal />
+      <NewEntryModal updateEntries={updateEntries} />
       <EntryModal
         resetState={() => setDiaryEntry({})}
         diaryEntry={diaryEntry}
+        handleDelete={handleDelete}
       />
+      <EditEntryModal diaryEntry={diaryEntry} resetState={() => setDiaryEntry({})} handleEdit={handleEdit}/>
     </main>
   );
 };
