@@ -2,7 +2,7 @@ const Timeline = ({ entries, setDiaryEntry }) => {
   return (
     <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
       {entries.map((entry, index) => (
-        <li key={index} onClick={() => setDiaryEntry(entry)}>
+        <li key={index}>
           <div className="timeline-middle ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -19,6 +19,7 @@ const Timeline = ({ entries, setDiaryEntry }) => {
           </div>
 
           <div
+            onClick={() => setDiaryEntry(entry)}
             className={`mb-10 bg-base-300 ${
               index % 2 === 0 ? 'timeline-start md:text-end' : 'timeline-end'
             } timeline-box`}
