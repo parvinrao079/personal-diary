@@ -92,7 +92,7 @@ export const EditEntryModal = ({diaryEntry, resetState, handleEdit}) => {
       setSuccessMessage('');
     }, 3000);
     handleEdit(updateEntry);
-    
+
     // Optional: Reset the input fields after saving
     setSelectedEmoji(0);
     setTitle('');
@@ -113,8 +113,8 @@ export const EditEntryModal = ({diaryEntry, resetState, handleEdit}) => {
           </button>
         </form>
         <div className="flex flex-col gap-4 py-4 px-4">
-          <h3 className="font-bold text-3xl">Add new entry</h3>
-          <p className="py-4 mb-8">Fill out the data to add a new entry</p>
+          <h3 className="font-bold text-3xl">Edit your entry</h3>
+          <p className="py-4">Change your data to edit your entry</p>
           <form className="flex flex-col gap-6">
             <div>
               <label className='label textneutral'>What is your mood today?</label>
@@ -177,7 +177,7 @@ export const EditEntryModal = ({diaryEntry, resetState, handleEdit}) => {
               >
                 <MessageSquareText className='mt-2' />
                 <textarea
-                  className="textarea textarea-lg pl-0 pt-0 w-full"
+                  className="textarea textarea-md pl-0 pt-0 w-full"
                   placeholder="Text"
                   value={text || ''}
                   onChange={(e) => setText(e.target.value)}

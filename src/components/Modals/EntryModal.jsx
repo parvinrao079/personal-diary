@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Calendar, MapPin, Music } from 'react-feather';
+import { Calendar } from 'react-feather';
 
 //Edit Button
 const handleEdit = () => {
@@ -8,7 +8,7 @@ const handleEdit = () => {
 
 export const EntryModal = ({ diaryEntry, resetState, handleDelete }) => {
   return (
-    <dialog id="entryModal" className="modal modal-bottom sm:modal-middle">
+    <dialog id="entryModal" className="modal sm:modal-middle modal-bottom">
       <div className="modal-box">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
@@ -28,22 +28,18 @@ export const EntryModal = ({ diaryEntry, resetState, handleDelete }) => {
             />
           </figure>
           <h3 className="font-bold text-3xl">{diaryEntry.title}</h3>
-          <p className="py-4">{diaryEntry.preview}</p>
-
           <div className="flex flex-wrap gap-3 mt-2">
+          <span className="badge badge-secondary h-8 bg-accent text-xl mr-4">
+                  {diaryEntry.mood}
+                </span>
             <div className="badge badge-outline rounded-md h-8">
               <Calendar className="mr-3" size={13} /> {diaryEntry.date}
             </div>
-            <div className="badge badge-outline rounded-md h-8">
-              <MapPin className="mr-3" size={13} /> {diaryEntry.location}
-            </div>
-            <div className="badge badge-outline rounded-md h-8">
-              <Music className="mr-3" size={13} /> {diaryEntry.music}
-            </div>
           </div>
-          <div className="badge badge-outline text-primary h-auto cursor-pointer">
-            # {[diaryEntry.mood]}
-          </div>
+          <p className="py-4">{diaryEntry.text}</p>
+
+          
+          
         </div>
         <div className="modal-action">
           <form method="dialog">
