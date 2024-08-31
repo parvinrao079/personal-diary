@@ -1,70 +1,50 @@
-import { CheckCircle } from 'lucide-react'; // Assuming you're using lucide-react for icons
-
 const Timeline = ({ entries, setDiaryEntry }) => {
   return (
-    <div className="relative">
-      <div className="absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 w-1 bg-gray-500"></div>
-      {entries.map((entry, index) => {
-        const isLeftSide = index % 2 === 0;
+    <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+      {entries.map((entry, index) => (
+        <li key={index} onClick={() => setDiaryEntry(entry)}>
+          <div className="timeline-middle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
 
-        return (
           <div
-            key={index}
-            className={`mb-12 flex w-full ${isLeftSide ? 'justify-end' : 'justify-start'} relative`} onClick={() => setDiaryEntry(entry) }
+            className={`mb-10 bg-base-300 ${
+              index % 2 === 0 ? 'timeline-start md:text-end' : 'timeline-end'
+            } timeline-box`}
           >
-            {/* Tick icon on the timeline line, aligned with the top of the card */}
-            <div
-              className="absolute transform -translate-x-1/2 bg-[#1f2937]"
-              style={{
-                top: 0, // Align with the top of the card
-                left: '50%',
-                height: '24px', // This should match the size of the tick icon
-                width: '24px', // This should match the size of the tick icon
-                zIndex: 10, // Ensure it is above the line
-              }}
-            >
-              <CheckCircle size={24} className="text-[#0ea5e9]" />
-            </div>
-            <div
-              className={`timeline-item w-5/12 bg-[#1f2937] shadow-lg p-6 rounded-lg ${
-                isLeftSide ? 'mr-8' : 'ml-8'
-              }`}
-            >
+            <div className="flex flex-col gap-4 px-4 py-4">
               {entry.imgURL && (
                 <img
                   src={entry.imgURL}
-                  alt="Entry"
-                  className="rounded-lg w-full h-56 object-cover mb-4"
+                  alt={entry.title}
+                  className="rounded-xl h-48 w-full object-cover"
                 />
               )}
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-sm font-medium text-gray-400">{entry.date}</h3>
-                <h3 className="text-2xl font-bold text-white">
-                  {entry.title} <span className="text-lg">😊</span>
-                </h3>
-              </div>
-              <p className="text-gray-300 mb-4">{entry.text}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="badge bg-[#0ea5e9] text-white">#nature</span>
-                <span className="badge bg-[#0ea5e9] text-white">#reflection</span>
-              </div>
-              <div className="flex items-center justify-between text-gray-400">
-                <span>
-                  <i className="far fa-thumbs-up mr-2"></i>23
+              <time className="font-mono italic">{entry.date}</time>
+              <div className="text-lg font-black">
+                {entry.title}{' '}
+                <span className="badge badge-secondary h-6 bg-accent ml-10">
+                  {entry.mood}
                 </span>
-                <div className="flex space-x-2">
-                  {entry.tags?.map((tag, i) => (
-                    <span key={i} className="badge bg-[#14b8a6] text-white">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
               </div>
+              <p className="text-sm line-clamp-3">{entry.text}</p>
             </div>
           </div>
-        );
-      })}
-    </div>
+          <hr />
+        </li>
+      ))}
+    </ul>
   );
 };
 

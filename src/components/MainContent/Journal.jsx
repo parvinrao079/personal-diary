@@ -1,5 +1,5 @@
-
-{/*
+{
+  /*
 import { useEffect, useState } from 'react';
 import { Calendar, MapPin, Music, ThumbsUp } from 'react-feather';
 import { moodEmojis } from '../../utils/moodEmojis';
@@ -133,8 +133,6 @@ const Journal = () => {
             <li
               key={entry.id}
               onClick={() => setDiaryEntry(entry)}
-              // onClick={() => document.getElementById('newEntryModal').showModal()}
-              // onClick={() => document.getElementById('alreadyAddedModal').showModal()}
             >
               <div className="timeline-middle">
                 <svg
@@ -187,8 +185,8 @@ const Journal = () => {
 };
 
 export default Journal;
-*/}
-
+*/
+}
 
 import React, { useState, useEffect } from 'react';
 import Grid from '../CardLayouts/Grid';
@@ -222,7 +220,7 @@ const Journal = () => {
     const today = new Date();
     return today.toISOString().slice(0, 10);
   }
-  
+
   const todayDate = getTodayDate();
 
   const hasTodayEntry = entries.some((entry) => entry.date === todayDate);
@@ -236,25 +234,22 @@ const Journal = () => {
   }
 
   return (
-    <main className="p-6">
-      <h1 className="text-3xl font-bold text-white mb-6">My Journal</h1>
+    <main className="flex-grow container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={() => choosingModal()}
-          className="btn btn-primary"
-        >
+        <h1 className="text-3xl font-bold">My Journal</h1>
+        <button onClick={() => choosingModal()} className="btn btn-primary">
           Add Entry
         </button>
         <div className="btn-group">
           <button
+            className={`btn ${view === 'grid' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
             onClick={() => setView('grid')}
-            className={`btn ${view === 'grid' ? 'btn-active' : ''}`}
           >
             Grid
           </button>
           <button
+            className={`btn ${view === 'timeline' ? 'btn-active hover:bg-primary bg-primary text-base-100' : ''}`}
             onClick={() => setView('timeline')}
-            className={`btn ${view === 'timeline' ? 'btn-active' : ''}`}
           >
             Timeline
           </button>
@@ -276,7 +271,3 @@ const Journal = () => {
 };
 
 export default Journal;
-
-
-
-
