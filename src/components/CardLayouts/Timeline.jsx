@@ -3,7 +3,7 @@ const Timeline = ({ entries, setDiaryEntry }) => {
     <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
       {entries.map((entry, index) => (
         <li key={index} onClick={() => setDiaryEntry(entry)}>
-          <div className="timeline-middle">
+          <div className="timeline-middle ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -23,7 +23,7 @@ const Timeline = ({ entries, setDiaryEntry }) => {
               index % 2 === 0 ? 'timeline-start md:text-end' : 'timeline-end'
             } timeline-box`}
           >
-            <div className="flex flex-col gap-4 px-4 py-4">
+            <div className="flex flex-col gap-4 px-4 py-4 cursor-pointer">
               {entry.imgURL && (
                 <img
                   src={entry.imgURL}
@@ -38,7 +38,7 @@ const Timeline = ({ entries, setDiaryEntry }) => {
                 </span>
                 {entry.title}{' '}
               </div>
-              <p className="text-sm line-clamp-3">{entry.text}</p>
+              <p className="text-sm">{entry.text.slice(0, 200) + ' ...'}</p>
             </div>
           </div>
           <hr />
